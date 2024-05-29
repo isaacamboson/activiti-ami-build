@@ -92,13 +92,13 @@ resource "aws_security_group" "sg_22_80" {
 data "aws_ami" "stack" {
   owners      = ["self"]
   most_recent = true
-  name_regex  = "^ami-activiti.*"
+  name_regex  = "^activiti-ami.*"
 
   filter {
     name = "name"
     # values = ["ami-stack-51"]
     #values = ["ami-stack-1.2"]
-    values = ["ami-activiti-*"]
+    values = ["activiti-ami*"]
   }
 }
 
