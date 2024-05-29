@@ -55,7 +55,6 @@ resource "aws_key_pair" "Stack_KP" {
   public_key = file(var.PATH_TO_PUBLIC_KEY)
 }
 
-
 resource "aws_security_group" "sg_22_80" {
   name   = "sg_22"
   vpc_id = var.vpc_id
@@ -91,22 +90,25 @@ resource "aws_security_group" "sg_22_80" {
 }
 
 data "aws_ami" "stack" {
-  owners     = ["self"]
-  name_regex = "^"
+  owners      = ["self"]
+  most_recent = true
+  name_regex  = "^activiti-ami.*"
 
   filter {
-    name   = "name"
+    name = "name"
     # values = ["ami-stack-51"]
-    values = ["ami-stack-1.2"]
+    #values = ["ami-stack-1.2"]
+    values = ["activiti-ami*"]
   }
 }
+
 resource "aws_instance" "application_server" {
   ami                         = data.aws_ami.stack.id
   instance_type               = "t2.micro"
   subnet_id                   = var.subnets[0]
   vpc_security_group_ids      = [aws_security_group.sg_22_80.id]
   associate_public_ip_address = true
-  key_name = aws_key_pair.Stack_KP.key_name
+  key_name                    = aws_key_pair.Stack_KP.key_name
 
   tags = {
     Name = "Test_Instance"

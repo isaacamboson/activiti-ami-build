@@ -25,5 +25,5 @@ resource "aws_inspector_assessment_template" "stack_hardening_rules" {
 }
 
 output "assessment_template_arn" {
-    value=aws_inspector_assessment_template.stack_hardening_rules.arn
+  value = aws_inspector_assessment_template.stack_hardening_rules.arn
 }

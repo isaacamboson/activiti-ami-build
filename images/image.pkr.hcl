@@ -1,6 +1,7 @@
 variable "aws_source_ami" {
   # default = "amzn2-ami-hvm-2.0.20210326.0-x86_64-gp2"
-  default = "amzn2-ami-kernel-5.10-hvm-2.0.20240329.0-x86_64-gp2"
+  #default = "amzn2-ami-kernel-5.10-hvm-2.0.20240329.0-x86_64-gp2"
+  default = "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20240228"
 }
 
 variable "aws_instance_type" {
@@ -8,13 +9,14 @@ variable "aws_instance_type" {
 }
 
 variable "ami_name" {
-  default = "ami-stack-1.2"
+  # default = "ami-stack-1.2"
+  default = "ami-stack-51"
+  #default = "ami-activiti-1.1"
 }
 
 variable "component" {
-  default = "clixx"
+  default = "activiti"
 }
-
 
 variable "aws_accounts" {
   type = list(string)
@@ -40,16 +42,11 @@ data "amazon-ami" "source_ami" {
   region      = "${var.aws_region}"
 }
 
-
-
-
 # locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
-
 
 # source blocks are generated from your builders; a source can be referenced in
 # build blocks. A build block runs provisioners and post-processors on a
 # source.
-
 
 source "amazon-ebs" "amazon_ebs" {
   # assume_role {
@@ -72,9 +69,8 @@ source "amazon-ebs" "amazon_ebs" {
   source_ami              = "${data.amazon-ami.source_ami.id}"
   ssh_pty                 = true
   ssh_timeout             = "5m"
-  ssh_username            = "ec2-user"
+  ssh_username            = "ubuntu"
 }
-
 
 # a build block invokes sources and runs provisioning steps on them.
 build {
