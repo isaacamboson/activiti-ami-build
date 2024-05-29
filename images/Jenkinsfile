@@ -30,12 +30,10 @@ pipeline {
 
                  #sed -i "s/ami-stack-'[0-9]*$'/'${AMI_ID}'/" ./image.pkr.hcl
 
-                 sed -i "s/ami-stack-51/${AMI_ID}/g" image.pkr.hcl
-                 cat image.pkr.hcl
-
-                 #export PACKER_LOG=1
-                 #export PACKER_LOG_PATH=$WORKSPACE/packer.log
-                 #/usr/bin/packer build -force image.pkr.hcl 
+                 sed -i "s/ami-stack-51/${AMI_ID}/g" image.pkr.hcl                 
+                 export PACKER_LOG=1
+                 export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                 /usr/bin/packer build -force image.pkr.hcl 
 
                  '''
                
@@ -66,7 +64,7 @@ pipeline {
                  slackSend (color: '#FFFF00', message: "STARTING INFRASTRUCTURE BUILD AND VULNERABILITY SCAN: Job by ${RUNNER} '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                  sh """
                  cd instances
-                //  terraform apply -auto-approve
+                 terraform apply -auto-approve
                  """                          
          }
          }
@@ -75,11 +73,11 @@ pipeline {
              steps {
                  sh """
                  cd instances
-                //  aws inspector start-assessment-run --assessment-run-name Hardeningrun_'${VERSION}' --assessment-template-arn "arn:aws:inspector:us-east-1:992382477605:target/0-ZNRTyRDm/template/0-AZqxmed4" --region us-east-1
+                 aws inspector start-assessment-run --assessment-run-name Hardeningrun_'${VERSION}' --assessment-template-arn "arn:aws:inspector:us-east-1:992382477605:target/0-ZNRTyRDm/template/0-AZqxmed4" --region us-east-1
                  """  
                  slackSend (color: '#FFFF00', message: "ENDING DEPLOYMENT: Job by ${RUNNER} '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")                        
          }
-         }       
+         }    
         
     }
 }

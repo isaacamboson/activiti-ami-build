@@ -90,14 +90,15 @@ resource "aws_security_group" "sg_22_80" {
 }
 
 data "aws_ami" "stack" {
-  owners     = ["self"]
-  name_regex = "^"
+  owners      = ["self"]
+  most_recent = true
+  name_regex  = "^ami-activiti.*"
 
   filter {
-    name   = "name"
+    name = "name"
     # values = ["ami-stack-51"]
-    values = ["ami-stack-1.2"]
-    #values = ["ami-activiti-1.1"]
+    #values = ["ami-stack-1.2"]
+    values = ["ami-activiti-*"]
   }
 }
 
@@ -107,7 +108,7 @@ resource "aws_instance" "application_server" {
   subnet_id                   = var.subnets[0]
   vpc_security_group_ids      = [aws_security_group.sg_22_80.id]
   associate_public_ip_address = true
-  key_name = aws_key_pair.Stack_KP.key_name
+  key_name                    = aws_key_pair.Stack_KP.key_name
 
   tags = {
     Name = "Test_Instance"
