@@ -27,7 +27,7 @@ pipeline {
                  sh '''
                  cd images
                 //  sed -i "s/ami-stack-'[0-9]*$'/'${AMI_ID}'/" ./image.pkr.hcl
-                 sed -i "s/ami-stack-'[0-9]*$'/'${AMI_ID}'/g" ./image.pkr.hcl
+                 sed -i "s/ami-stack-51/${AMI_ID}/g" ./image.pkr.hcl
                  cat ./image.pkr.hcl
                 //  export PACKER_LOG=1
                 //  export PACKER_LOG_PATH=$WORKSPACE/packer.log
