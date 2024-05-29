@@ -37,5 +37,5 @@ variable "PATH_TO_PUBLIC_KEY" {
 }
 
 variable "ami_name" {
-  default = "ami-stack-51"
+  #default = "ami-stack-51"
 }
