@@ -1,18 +1,22 @@
 #!/bin/bash
 
+
 #Creating Necessary Directories 
-mkdir -p /home/ubuntu/monitoring
-mkdir -p /home/ubuntu/.cache/helm
-mkdir -p /home/ubuntu/.kube
-mkdir -p /home/ubuntu/deployments
-mkdir -p /home/ubuntu/services
-mkdir -p /etc/apt/sources.list.d/
-touch /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo mkdir -p /home/ubuntu/monitoring
+sudo mkdir -p /home/ubuntu/.cache/helm
+sudo mkdir -p /home/ubuntu/.kube
+sudo mkdir -p /home/ubuntu/deployments
+sudo mkdir -p /home/ubuntu/services
+sudo mkdir -p /etc/apt/sources.list.d/
+sudo touch /etc/apt/sources.list.d/kubernetes.list
+sudo mkdir -p /etc/apt/keyrings/
+
 
 #installing necessary addons
-sudo apt install -y nfs-common
+sudo apt install -y nfs-common 
 sudo apt install -y awscli
-sudo sudo apt install mysql-client-core-8.0
+sudo apt install mysql-client-core-8.0 -y
 
 #installing CloudWatch Agent
 sudo wget https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloud
@@ -34,7 +38,7 @@ cat << 'EOF' > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 EOF
 
 #Installing docker
-sudo apt install docker.io
+sudo apt install docker.io -y
 
 #installing Containerd
 
@@ -70,8 +74,14 @@ sudo apt-get install -y kubeadm=1.28.1-1.1
 sudo apt-get install -y kubectl=1.28.1-1.1 --allow-downgrades
 sudo apt-mark hold kubelet kubeadm kubectl
 
-sudo cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
+# #installing HELM
+# snap install helm --classic 
+# sudo chown -R ubuntu.ubuntu /home/ubuntu/.cache/helm
+
+#Installing Prometheus
+# helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+# helm repo add stable https://charts.helm.sh/stable
+# helm repo update
 
 # Apply sysctl params without reboot
 sudo sysctl --system
-

@@ -68,7 +68,7 @@ source "amazon-ebs" "amazon_ebs" {
   source_ami              = "${data.amazon-ami.source_ami.id}"
   ssh_pty                 = true
   ssh_timeout             = "5m"
-  ssh_username            = "ec2-user"
+  ssh_username            = "ubuntu"
 }
 
 # a build block invokes sources and runs provisioning steps on them.
