@@ -6,7 +6,7 @@ pipeline {
 
     environment {
         PATH = "${PATH}:${getTerraformPath()}"
-        AMI_ID="stack-ami-${BUILD_NUMBER}"
+        AMI_ID="activiti-ami-${BUILD_NUMBER}"
         VERSION = "1.0.${BUILD_NUMBER}"
         RUNNER = "Isaac"
         
