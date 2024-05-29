@@ -9,7 +9,8 @@ variable "aws_instance_type" {
 }
 
 variable "ami_name" {
-  default = "ami-stack-1.2"
+  # default = "ami-stack-1.2"
+  default = "ami-stack-51"
   #default = "ami-activiti-1.1"
 }
 
