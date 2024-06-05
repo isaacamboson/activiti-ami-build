@@ -77,8 +77,7 @@ pipeline {
                  """  
                  slackSend (color: '#FFFF00', message: "ENDING DEPLOYMENT: Job by ${RUNNER} '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")                        
          }
-         }    
-        
+         }            
     }
 }
 
